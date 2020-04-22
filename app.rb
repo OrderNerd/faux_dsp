@@ -5,9 +5,9 @@ require "logger"
 
 set :logger, Logger.new(STDOUT)
 
-post "/account_verify" do
+post "/location_verify" do
   payload = JSON.parse(request.body.read)
-  logger.info("account_verify payload=#{payload}")
+  logger.info("location_verify payload=#{payload}")
   if(payload["phone"] == "1")
     status 400
     jsonp(authorized: false)
@@ -16,8 +16,14 @@ post "/account_verify" do
   end
 end
 
-post "/account_created" do
+post "/location_created" do
   payload = JSON.parse(request.body.read)
-  logger.info("account_created payload=#{payload}")
+  logger.info("location_created payload=#{payload}")
+  status 204
+end
+
+post "/order_confirmed" do
+  payload = JSON.parse(request.body.read)
+  logger.info("order_confirmed payload=#{payload}")
   status 204
 end
