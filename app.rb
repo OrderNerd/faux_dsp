@@ -8,9 +8,16 @@ set :logger, Logger.new(STDOUT)
 post "/account_verify" do
   payload = JSON.parse(request.body.read)
   logger.info("account_verify payload=#{payload}")
-  status 202
-  jsonp(authorized: true)
+  if(payload["phone"] == "1")
+    status 400
+    jsonp(authorized: false)
+  else
+    status 204
+  end
 end
 
-post "/account_create" do
+post "/account_created" do
+  payload = JSON.parse(request.body.read)
+  logger.info("account_created payload=#{payload}")
+  status 204
 end
